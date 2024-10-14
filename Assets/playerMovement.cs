@@ -8,6 +8,7 @@ public class playerMovement : MonoBehaviour
 
     Rigidbody2D rb;
     [SerializeField] float boostModifier = 2f;
+    float jumpAmount = 10;
     Vector2 inputDirection = Vector2.zero;
     private void Start()
     {
@@ -20,11 +21,17 @@ public class playerMovement : MonoBehaviour
        // rb.AddForce(movementDir * boostModifier, ForceMode2D.Impulse);
 
         inputDirection = movementDir;
+        
     }
 
     private void Update()
     {
         rb.AddForce(inputDirection * boostModifier);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector2.up * jumpAmount, ForceMode2D.Impulse);
+            Debug.Log("jumped");
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -36,4 +43,5 @@ public class playerMovement : MonoBehaviour
     {
         Debug.Log("meyay!");
     }
+
 }
